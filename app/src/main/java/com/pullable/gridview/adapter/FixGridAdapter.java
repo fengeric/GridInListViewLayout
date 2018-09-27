@@ -62,18 +62,11 @@ public class FixGridAdapter extends BaseAdapter {
 
             holder.tv_name.setText(fixContentBean.spaceName);
 
-            holder.tv_name.setTag(R.id.content_checked, fixContentBean.isChecked);
+            //holder.tv_name.setTag(R.id.content_checked, fixContentBean.isChecked);
 
-            GradientDrawable myGrad = (GradientDrawable) holder.tv_name.getBackground();
+            changeColor(holder.tv_name, fixContentBean);
 
-            if (fixContentBean.isChecked) {
-                holder.tv_name.setTextColor(context.getResources().getColor(R.color.white));
-                myGrad.setColor(context.getResources().getColor(R.color.colro_checked));
-            } else {
-                holder.tv_name.setTextColor(context.getResources().getColor(R.color.select_stroke_color));
-                myGrad.setColor(context.getResources().getColor(R.color.white));
-            }
-
+            setClickListener(holder.tv_name, fixContentBean);
             /*convertView.setOnClickListener(new OnClickListener() {
 
                 @Override
@@ -88,7 +81,38 @@ public class FixGridAdapter extends BaseAdapter {
         return convertView;
     }
 
-    /*private void changeColor(final TextView tv_name, final int position, final FixAreaBean.FixContentBean fixContentBean){
+    private void setClickListener(final TextView tv_name, final FixAreaBean.FixContentBean fixContentBean){
+        try {
+            tv_name.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    fixContentBean.isChecked = !fixContentBean.isChecked;
+
+                    changeColor(tv_name, fixContentBean);
+                }
+            });
+        } catch (Exception e) {
+          LogUtil.e(getClass(), "setClickListener", e);
+        }
+    }
+
+    private void changeColor(final TextView tv_name, final FixAreaBean.FixContentBean fixContentBean){
+        try {
+            GradientDrawable myGrad = (GradientDrawable) tv_name.getBackground();
+
+            if (fixContentBean.isChecked) {
+                tv_name.setTextColor(context.getResources().getColor(R.color.white));
+                myGrad.setColor(context.getResources().getColor(R.color.colro_checked));
+            } else {
+                tv_name.setTextColor(context.getResources().getColor(R.color.select_stroke_color));
+                myGrad.setColor(context.getResources().getColor(R.color.white));
+            }
+        } catch (Exception e) {
+          LogUtil.e(getClass(), "changeColor", e);
+        }
+    }
+
+    /*private void setClickListener(final TextView tv_name, final int position, final FixAreaBean.FixContentBean fixContentBean){
         try {
             tv_name.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -111,7 +135,7 @@ public class FixGridAdapter extends BaseAdapter {
                 }
             });
         } catch (Exception e) {
-          LogUtil.e(getClass(), "changeColor", e);
+          LogUtil.e(getClass(), "setClickListener", e);
         }
     }*/
 

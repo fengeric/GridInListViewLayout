@@ -37,7 +37,7 @@ public class GridInListViewActivity extends Activity implements GridItemClick {
     }
 
     private void setData() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 30; i++) {
             FixAreaBean fixAreaBean = new FixAreaBean();
             fixAreaBean.fixTitle = "title" + i;
 

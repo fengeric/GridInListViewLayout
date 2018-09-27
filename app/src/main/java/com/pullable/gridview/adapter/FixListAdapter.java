@@ -1,12 +1,10 @@
 package com.pullable.gridview.adapter;
 
 import android.content.Context;
-import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -79,11 +77,11 @@ public class FixListAdapter extends BaseAdapter {
 					gridItemClick);
 			viewHolder.childGridView.setAdapter(reAdapter);
 
-			//setViewVisiblity(viewHolder.childGridView, viewHolder.switchImag, fixAreaBean.isOpen);
+			setViewVisiblity(viewHolder.childGridView, viewHolder.switchImag, fixAreaBean.isOpen);
 
 			changeColor(viewHolder.listItemLayout, viewHolder.childGridView, viewHolder.switchImag, fixAreaBean);
 
-			viewHolder.childGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			/*viewHolder.childGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
@@ -102,7 +100,7 @@ public class FixListAdapter extends BaseAdapter {
 
 					tv_name.setTag(R.id.content_checked, !isChecked);
 				}
-			});
+			});*/
 		} catch (Exception e) {
 			LogUtil.e(getClass(), "public View getView(final int position", e);
 		}
