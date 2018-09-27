@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class FixAreaBean {
     public boolean isOpen = false;
     public String fixTitle;
+    public int selectedNum = 0;
     public ArrayList<FixContentBean> fixAreaNames = new ArrayList<>();
 
     public static class FixContentBean {

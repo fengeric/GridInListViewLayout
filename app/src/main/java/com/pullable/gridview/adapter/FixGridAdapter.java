@@ -86,7 +86,11 @@ public class FixGridAdapter extends BaseAdapter {
             tv_name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     fixContentBean.isChecked = !fixContentBean.isChecked;
+
+                    if (callBack != null)
+                        callBack.onItemClick(fixContentBean.isChecked);
 
                     changeColor(tv_name, fixContentBean);
                 }
@@ -112,34 +116,17 @@ public class FixGridAdapter extends BaseAdapter {
         }
     }
 
-    /*private void setClickListener(final TextView tv_name, final int position, final FixAreaBean.FixContentBean fixContentBean){
-        try {
-            tv_name.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    GradientDrawable myGrad = (GradientDrawable) tv_name.getBackground();
-
-                    if (fixContentBean.isChecked) {
-                        map.remove(position);
-
-                        tv_name.setTextColor(context.getResources().getColor(R.color.select_stroke_color));
-                        myGrad.setColor(context.getResources().getColor(R.color.white));
-
-                    } else {
-                        map.put(position, true);
-
-                        tv_name.setTextColor(context.getResources().getColor(R.color.white));
-                        myGrad.setColor(context.getResources().getColor(R.color.colro_checked));
-                    }
-                    fixContentBean.isChecked = !fixContentBean.isChecked;
-                }
-            });
-        } catch (Exception e) {
-          LogUtil.e(getClass(), "setClickListener", e);
-        }
-    }*/
-
     class MyHolder {
         TextView tv_name;
+    }
+
+    private CallBack callBack;
+
+    public void setCallBack(CallBack callBack) {
+        this.callBack = callBack;
+    }
+
+    public interface CallBack {
+        void onItemClick(boolean isPlus);
     }
 }

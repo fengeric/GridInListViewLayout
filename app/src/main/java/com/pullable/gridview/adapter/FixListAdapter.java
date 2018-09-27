@@ -71,12 +71,25 @@ public class FixListAdapter extends BaseAdapter {
 				viewHolder = (ViewHolder) convertView.getTag();
 			}
 
-			FixAreaBean fixAreaBean = list_datas.get(position);
+			final FixAreaBean fixAreaBean = list_datas.get(position);
 			viewHolder.titleName.setText(fixAreaBean.fixTitle);
 			reAdapter = new FixGridAdapter(context, fixAreaBean.fixAreaNames,
 					gridItemClick);
 			viewHolder.childGridView.setAdapter(reAdapter);
+			reAdapter.setCallBack(new FixGridAdapter.CallBack() {
+				@Override
+				public void onItemClick(boolean isPlus) {
+					if (isPlus) {
+						fixAreaBean.selectedNum++;
+					} else {
+						fixAreaBean.selectedNum --;
+					}
 
+					//setTextTitleColor(viewHolder.titleName, fixAreaBean.selectedNum);
+				}
+			});
+
+			setTextTitleColor(viewHolder.titleName, fixAreaBean.selectedNum);
 			setViewVisiblity(viewHolder.childGridView, viewHolder.switchImag, fixAreaBean.isOpen);
 
 			changeColor(viewHolder.listItemLayout, viewHolder.childGridView, viewHolder.switchImag, fixAreaBean);
@@ -105,6 +118,21 @@ public class FixListAdapter extends BaseAdapter {
 			LogUtil.e(getClass(), "public View getView(final int position", e);
 		}
 		return convertView;
+	}
+	
+	 /**
+	  * selectedNum 子元素被选中的个数
+	  */
+	private void setTextTitleColor(final TextView textViewTitle, int selectedNum){
+		try {
+			if (selectedNum > 0) {
+				textViewTitle.setTextColor(context.getResources().getColor(R.color.colro_checked));
+			} else {
+				textViewTitle.setTextColor(context.getResources().getColor(R.color.select_new_light_purple));
+			}
+		} catch (Exception e) {
+		  LogUtil.e(getClass(), "setTextTitleColor", e);
+		}
 	}
 
 	private void changeColor(final LinearLayout listItemLayout, final MyGridView childGridView,
