@@ -5,4 +5,6 @@
     <color name="colorAccent">#FF4081</color>
     <color name="select_new_light_purple">#b7398f</color>
     <color name="select_stroke_color">#cacaca</color>
+    <color name="white">#ffffff</color>
+    <color name="colro_checked">#004370</color>
 </resources>

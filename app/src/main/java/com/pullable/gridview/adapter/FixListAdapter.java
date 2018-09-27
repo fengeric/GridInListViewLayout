@@ -2,21 +2,23 @@ package com.pullable.gridview.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.pullable.gridview.FixAreaBean;
 import com.pullable.gridview.GridItemClick;
 import com.pullable.gridview.LogUtil;
 import com.pullable.gridview.MyGridView;
 import com.pullable.gridview.R;
+import com.pullable.gridview.bean.FixAreaBean;
 
 import java.util.List;
 
@@ -85,6 +87,29 @@ public class FixListAdapter extends BaseAdapter {
 			changeColor(viewHolder.listItemLayout, viewHolder.titleName,
 					viewHolder.childGridView, viewHolder.switchImag,
 					viewHolder.view, keyBean);
+
+			viewHolder.childGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+					//FixAreaBean.FixContentBean fixContentBean = (FixAreaBean.FixContentBean) adapterView.getAdapter().getItem(i);
+
+					TextView tv_name = (TextView) view.findViewById(R.id.recommend_text);
+
+					GradientDrawable myGrad = (GradientDrawable) tv_name.getBackground();
+
+					boolean isChecked =(Boolean) tv_name.getTag(R.id.content_checked);
+					if (isChecked) {
+						tv_name.setTextColor(context.getResources().getColor(R.color.select_stroke_color));
+						myGrad.setColor(context.getResources().getColor(R.color.white));
+					} else {
+						tv_name.setTextColor(context.getResources().getColor(R.color.white));
+						myGrad.setColor(context.getResources().getColor(R.color.colro_checked));
+					}
+
+					tv_name.setTag(R.id.content_checked, !isChecked);
+				}
+			});
 		} catch (Exception e) {
 			LogUtil.e(getClass(), "public View getView(final int position", e);
 		}

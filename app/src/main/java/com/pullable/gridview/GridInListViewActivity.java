@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.widget.ListView;
 
 import com.pullable.gridview.adapter.FixListAdapter;
+import com.pullable.gridview.bean.FixAreaBean;
 
 import java.util.ArrayList;
 
@@ -41,7 +42,10 @@ public class GridInListViewActivity extends Activity implements GridItemClick {
             fixAreaBean.fixTitle = "title" + i;
 
             for (int i1 = 0; i1 < 10; i1++) {
-                fixAreaBean.fixAreaNames.add("内容" + i + "-" + i1);
+                FixAreaBean.FixContentBean fixContentBean = new FixAreaBean.FixContentBean();
+                fixContentBean.spaceName = "内容" + i + "-" + i1;
+
+                fixAreaBean.fixAreaNames.add(fixContentBean);
             }
 
             list_datas.add(fixAreaBean);
