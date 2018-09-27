@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.pullable.gridview.GridItemClick;
+import com.pullable.gridview.LogUtil;
 import com.pullable.gridview.R;
 import com.pullable.gridview.bean.FixAreaBean;
 
@@ -44,7 +45,7 @@ public class FixGridAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        /*try {*/
+        try {
             MyHolder holder = null;
             if (convertView == null) {
                 holder = new MyHolder();
@@ -63,7 +64,6 @@ public class FixGridAdapter extends BaseAdapter {
 
             holder.tv_name.setTag(R.id.content_checked, fixContentBean.isChecked);
 
-
             GradientDrawable myGrad = (GradientDrawable) holder.tv_name.getBackground();
 
             if (fixContentBean.isChecked) {
@@ -81,12 +81,39 @@ public class FixGridAdapter extends BaseAdapter {
                     //gridItemClick.gridItemClick(list_contents.get(position));
                 }
             });*/
-        /*} catch (Exception e) {
+        } catch (Exception e) {
             LogUtil.e(getClass(), "public View getView(final int position", e);
-        }*/
+        }
 
         return convertView;
     }
+
+    /*private void changeColor(final TextView tv_name, final int position, final FixAreaBean.FixContentBean fixContentBean){
+        try {
+            tv_name.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    GradientDrawable myGrad = (GradientDrawable) tv_name.getBackground();
+
+                    if (fixContentBean.isChecked) {
+                        map.remove(position);
+
+                        tv_name.setTextColor(context.getResources().getColor(R.color.select_stroke_color));
+                        myGrad.setColor(context.getResources().getColor(R.color.white));
+
+                    } else {
+                        map.put(position, true);
+
+                        tv_name.setTextColor(context.getResources().getColor(R.color.white));
+                        myGrad.setColor(context.getResources().getColor(R.color.colro_checked));
+                    }
+                    fixContentBean.isChecked = !fixContentBean.isChecked;
+                }
+            });
+        } catch (Exception e) {
+          LogUtil.e(getClass(), "changeColor", e);
+        }
+    }*/
 
     class MyHolder {
         TextView tv_name;

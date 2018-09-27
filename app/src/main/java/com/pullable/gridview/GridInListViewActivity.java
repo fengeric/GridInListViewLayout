@@ -31,7 +31,7 @@ public class GridInListViewActivity extends Activity implements GridItemClick {
     }
 
     private void initListView() {
-        listView = (ListView) findViewById(R.id.push_key_list);
+        listView = (ListView) findViewById(R.id.list_view_fix_area);
         fixListAdapter = new FixListAdapter(this, list_datas, this);
         listView.setAdapter(fixListAdapter);
     }

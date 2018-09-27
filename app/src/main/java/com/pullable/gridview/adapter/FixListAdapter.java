@@ -1,7 +1,6 @@
 package com.pullable.gridview.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,7 +66,6 @@ public class FixListAdapter extends BaseAdapter {
 						.findViewById(R.id.titleimag);
 				viewHolder.childGridView = (MyGridView) convertView
 						.findViewById(R.id.gridview_item_recommend);
-				viewHolder.view = convertView.findViewById(R.id.middle_view);
 				viewHolder.listItemLayout = (LinearLayout) convertView
 						.findViewById(R.id.list_item_layout);
 				convertView.setTag(viewHolder);
@@ -75,24 +73,19 @@ public class FixListAdapter extends BaseAdapter {
 				viewHolder = (ViewHolder) convertView.getTag();
 			}
 
-			final FixAreaBean keyBean = list_datas.get(position);
-			viewHolder.titleName.setText(keyBean.fixTitle);
-			reAdapter = new FixGridAdapter(context, keyBean.fixAreaNames,
+			FixAreaBean fixAreaBean = list_datas.get(position);
+			viewHolder.titleName.setText(fixAreaBean.fixTitle);
+			reAdapter = new FixGridAdapter(context, fixAreaBean.fixAreaNames,
 					gridItemClick);
 			viewHolder.childGridView.setAdapter(reAdapter);
 
-			setViewVisiblity(viewHolder.titleName, viewHolder.childGridView,
-					viewHolder.switchImag, viewHolder.view, keyBean.isOpen);
+			//setViewVisiblity(viewHolder.childGridView, viewHolder.switchImag, fixAreaBean.isOpen);
 
-			changeColor(viewHolder.listItemLayout, viewHolder.titleName,
-					viewHolder.childGridView, viewHolder.switchImag,
-					viewHolder.view, keyBean);
+			changeColor(viewHolder.listItemLayout, viewHolder.childGridView, viewHolder.switchImag, fixAreaBean);
 
 			viewHolder.childGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-					//FixAreaBean.FixContentBean fixContentBean = (FixAreaBean.FixContentBean) adapterView.getAdapter().getItem(i);
 
 					TextView tv_name = (TextView) view.findViewById(R.id.recommend_text);
 
@@ -116,10 +109,8 @@ public class FixListAdapter extends BaseAdapter {
 		return convertView;
 	}
 
-	private void changeColor(final LinearLayout listItemLayout,
-                             final TextView titleName, final MyGridView childGridView,
-                             final ImageView switchImag, final View view,
-                             final FixAreaBean keyBean) {
+	private void changeColor(final LinearLayout listItemLayout, final MyGridView childGridView,
+                             final ImageView switchImag, final FixAreaBean keyBean) {
 		listItemLayout.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -129,31 +120,24 @@ public class FixListAdapter extends BaseAdapter {
 				} else {
 					keyBean.isOpen = true;
 				}
-				setViewVisiblity(titleName, childGridView, switchImag, view,
-						keyBean.isOpen);
+				setViewVisiblity(childGridView, switchImag , keyBean.isOpen);
 			}
 		});
 	}
 
 	/**设置gridview的显示和隐藏
-	 * @param titleName
 	 * @param childGridView
 	 * @param switchImag
-	 * @param view
 	 * @param isVisible
 	 */
-	private void setViewVisiblity(TextView titleName, MyGridView childGridView,
-                                  ImageView switchImag, View view, boolean isVisible) {
+	private void setViewVisiblity(MyGridView childGridView,
+                                  ImageView switchImag, boolean isVisible) {
 		try {
 			if (isVisible) {
-				titleName.setTextColor(Color.argb(255, 198, 181, 112));
 				switchImag.setImageResource(R.drawable.record_up);
-				view.setBackgroundColor(Color.argb(255, 198, 181, 112));
 				childGridView.setVisibility(View.VISIBLE);
 			} else {
-				titleName.setTextColor(Color.argb(255, 91, 91, 91));
 				switchImag.setImageResource(R.drawable.record_down);
-				view.setBackgroundColor(Color.argb(255, 230, 230, 230));
 				childGridView.setVisibility(View.GONE);
 			}
 
@@ -166,7 +150,6 @@ public class FixListAdapter extends BaseAdapter {
 		TextView titleName;
 		MyGridView childGridView;
 		ImageButton switchImag;
-		View view;
 		LinearLayout listItemLayout;
 	}
 

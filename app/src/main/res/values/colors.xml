@@ -7,4 +7,5 @@
     <color name="select_stroke_color">#cacaca</color>
     <color name="white">#ffffff</color>
     <color name="colro_checked">#004370</color>
+    <color name="color_divider">#efefef</color>
 </resources>

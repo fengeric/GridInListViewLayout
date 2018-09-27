@@ -31,12 +31,6 @@
             android:src="@drawable/record_down" />
     </RelativeLayout>
 
-    <View
-        android:id="@+id/middle_view"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#e6e6e6" />
-
     <com.pullable.gridview.MyGridView
         android:id="@+id/gridview_item_recommend"
         android:layout_width="fill_parent"

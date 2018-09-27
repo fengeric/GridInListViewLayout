@@ -7,15 +7,14 @@
     tools:context=".GridInListViewActivity">
 
     <ListView
-        android:id="@+id/push_key_list"
+        android:id="@+id/list_view_fix_area"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@android:color/white"
-        android:divider="@android:color/white"
+        android:divider="@color/color_divider"
+        android:dividerHeight="1dp"
         android:fadingEdge="none"
         android:listSelector="@android:color/white"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
         android:scrollbars="none"></ListView>
 
 </android.support.constraint.ConstraintLayout>
