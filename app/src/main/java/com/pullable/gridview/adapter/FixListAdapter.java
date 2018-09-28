@@ -17,6 +17,7 @@ import com.pullable.gridview.MyGridView;
 import com.pullable.gridview.R;
 import com.pullable.gridview.bean.FixAreaBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -26,6 +27,11 @@ public class FixListAdapter extends BaseAdapter {
 	public List<FixAreaBean> list_datas;// 整体listview的数据源
 	private FixGridAdapter reAdapter;// GridView的适配器
 	private GridItemClick gridItemClick;
+	private ArrayList<FixAreaBean.FixContentBean> list_selected_datas = new ArrayList<>();// 选中的数据集合
+
+	public ArrayList<FixAreaBean.FixContentBean> getSelectedDatas(){
+		return list_selected_datas;
+	}
 
 	public FixListAdapter(Context context, List<FixAreaBean> arrayList,
                           GridItemClick gridItemClick) {
@@ -93,11 +99,22 @@ public class FixListAdapter extends BaseAdapter {
 		try {
 			reAdapter.setCallBack(new FixGridAdapter.CallBack() {
 				@Override
-				public void onItemClick(boolean isPlus) {
+				public void onItemClick(FixAreaBean.FixContentBean bean) {
 
-					fixAreaBean.selectedNum = isPlus ? ++fixAreaBean.selectedNum : --fixAreaBean.selectedNum;
+					fixAreaBean.selectedNum = bean.isChecked ? ++fixAreaBean.selectedNum : --fixAreaBean.selectedNum;
 
 					setTextTitleColor(tvTitle, fixAreaBean.selectedNum);
+
+					if (bean.isChecked) {
+						list_selected_datas.add(bean);
+					} else {
+						for (int i = 0; i < list_selected_datas.size(); i++) {
+							if (bean.spaceName.equals(list_selected_datas.get(i).spaceName)) {
+								list_selected_datas.remove(i);
+								break;
+							}
+						}
+					}
 				}
 			});
 		} catch (Exception e) {

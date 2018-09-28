@@ -13,8 +13,19 @@
         android:background="@android:color/white"
         android:divider="@color/color_divider"
         android:dividerHeight="1dp"
+        android:layout_marginTop="50dp"
         android:fadingEdge="none"
         android:listSelector="@android:color/white"
         android:scrollbars="none"></ListView>
+
+    <TextView
+        android:id="@+id/tv_click"
+        android:background="#cccccc"
+        android:layout_width="match_parent"
+        android:text="获取点击的元素"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textColor="#ff00cc"
+        android:layout_height="wrap_content" />
 
 </android.support.constraint.ConstraintLayout>

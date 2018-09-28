@@ -3,6 +3,7 @@ package com.pullable.gridview;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.ListView;
 
 import com.pullable.gridview.adapter.FixListAdapter;
@@ -20,6 +21,8 @@ public class GridInListViewActivity extends Activity implements GridItemClick {
     private ListView listView;
     private FixListAdapter fixListAdapter;
 
+    ArrayList<FixAreaBean.FixContentBean> list_selected_datas = new ArrayList<>();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +30,26 @@ public class GridInListViewActivity extends Activity implements GridItemClick {
 
         setData();
         initListView();
+
+        findViewById(R.id.tv_click).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //LogUtil.v(getClass(), "onClick---" + ":" + fixListAdapter.getSelectedDatas());
+                if (list_selected_datas != null && list_selected_datas.size() > 0) {
+                    list_selected_datas.clear();
+                }
+
+                list_selected_datas.addAll(fixListAdapter.getSelectedDatas());
+
+                String s = "";
+
+                for (int i = 0; i < list_selected_datas.size(); i++) {
+                    FixAreaBean.FixContentBean bean = list_selected_datas.get(i);
+                    s = s + "-" + bean.spaceName;
+                }
+                LogUtil.v(getClass(), "onClick---" + ":" + s);
+            }
+        });
 
     }
 

@@ -90,7 +90,7 @@ public class FixGridAdapter extends BaseAdapter {
                     fixContentBean.isChecked = !fixContentBean.isChecked;
 
                     if (callBack != null)
-                        callBack.onItemClick(fixContentBean.isChecked);
+                        callBack.onItemClick(fixContentBean);
 
                     changeColor(tv_name, fixContentBean);
                 }
@@ -127,6 +127,6 @@ public class FixGridAdapter extends BaseAdapter {
     }
 
     public interface CallBack {
-        void onItemClick(boolean isPlus);
+        void onItemClick(FixAreaBean.FixContentBean fixContentBean);
     }
 }
