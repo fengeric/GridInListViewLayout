@@ -14,7 +14,9 @@ import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
+import com.pullable.gridview.bean.FixAreaBean;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private PullToRefreshGridView mPullRefreshGridView;
     private GridView mGridView;
     private ArrayAdapter<String> mAdapter;
+    ArrayList<FixAreaBean.FixContentBean> list_selected_datas = new ArrayList<>();
 
     /**
      * Called when the activity is first created.
@@ -34,7 +37,15 @@ public class MainActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ptr_grid);
-        startActivity(new Intent(MainActivity.this, GridInListViewActivity.class));
+
+        setInitData();
+        
+        Intent in = new Intent(MainActivity.this, GridInListViewActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("list", list_selected_datas);
+        in.putExtras(bundle);
+        startActivity(in);
+        
         mPullRefreshGridView = (PullToRefreshGridView) findViewById(R.id.pull_refresh_grid);
         mGridView = mPullRefreshGridView.getRefreshableView();
 
@@ -64,6 +75,21 @@ public class MainActivity extends AppCompatActivity {
 
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mListItems);
         mGridView.setAdapter(mAdapter);
+    }
+    
+    private void setInitData(){
+        try {
+            for (int i = 0; i < 2; i++) {
+                for (int i1 = 0; i1 < 5; i1++) {
+                    FixAreaBean.FixContentBean fixContentBean = new FixAreaBean.FixContentBean();
+                    fixContentBean.spaceName = "内容" + (int) (Math.random()*30) + "-" + (int) (Math.random()*10);
+
+                    list_selected_datas.add(fixContentBean);
+                }
+            }
+        } catch (Exception e) {
+          LogUtil.e(getClass(), "setInitData", e);
+        }
     }
 
     private class GetDataTask extends AsyncTask<Void, Void, String[]> {

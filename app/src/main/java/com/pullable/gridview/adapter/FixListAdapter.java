@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.pullable.gridview.GridItemClick;
 import com.pullable.gridview.LogUtil;
 import com.pullable.gridview.MyGridView;
 import com.pullable.gridview.R;
@@ -26,18 +25,23 @@ public class FixListAdapter extends BaseAdapter {
 	private LayoutInflater inflater;
 	public List<FixAreaBean> list_datas;// 整体listview的数据源
 	private FixGridAdapter reAdapter;// GridView的适配器
-	private GridItemClick gridItemClick;
 	private ArrayList<FixAreaBean.FixContentBean> list_selected_datas = new ArrayList<>();// 选中的数据集合
 
 	public ArrayList<FixAreaBean.FixContentBean> getSelectedDatas(){
 		return list_selected_datas;
 	}
 
-	public FixListAdapter(Context context, List<FixAreaBean> arrayList,
-                          GridItemClick gridItemClick) {
+	public void setSelectedDatas(ArrayList<FixAreaBean.FixContentBean> list_selected_datas){
+		try {
+		    this.list_selected_datas.addAll(list_selected_datas);
+		} catch (Exception e) {
+		  LogUtil.e(getClass(), "setSelectedDatas", e);
+		}
+	}
+
+	public FixListAdapter(Context context, List<FixAreaBean> arrayList) {
 		this.context = context;
 		this.list_datas = arrayList;
-		this.gridItemClick = gridItemClick;
 		inflater = LayoutInflater.from(context);
 	}
 
@@ -79,8 +83,7 @@ public class FixListAdapter extends BaseAdapter {
 
 			final FixAreaBean fixAreaBean = list_datas.get(position);
 			viewHolder.titleName.setText(fixAreaBean.fixTitle);
-			reAdapter = new FixGridAdapter(context, fixAreaBean.fixAreaNames,
-					gridItemClick);
+			reAdapter = new FixGridAdapter(context, fixAreaBean.fixAreaNames);
 			viewHolder.childGridView.setAdapter(reAdapter);
 
 			setTitleColorChangeListener(reAdapter, fixAreaBean, viewHolder.titleName);

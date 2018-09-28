@@ -15,20 +15,25 @@ import java.util.ArrayList;
  * Created by Administrator on 2018/9/27.
  */
 
-public class GridInListViewActivity extends Activity implements GridItemClick {
+public class GridInListViewActivity extends Activity {
 
-    private ArrayList<FixAreaBean> list_datas = new ArrayList<>();
-    private ListView listView;
-    private FixListAdapter fixListAdapter;
+    private ArrayList<FixAreaBean> list_datas = new ArrayList<>();//整体数据集合
+    private ListView listView;// 展示的listview
+    private FixListAdapter fixListAdapter;// 展示的adapter
 
-    ArrayList<FixAreaBean.FixContentBean> list_selected_datas = new ArrayList<>();
+    ArrayList<FixAreaBean.FixContentBean> list_selected_datas = new ArrayList<>();// 已经选中的数据
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grid_in_list);
 
+        list_selected_datas =(ArrayList<FixAreaBean.FixContentBean>) getIntent().getSerializableExtra("list");
+
         setData();
+
+        judgeDatas();
+
         initListView();
 
         findViewById(R.id.tv_click).setOnClickListener(new View.OnClickListener() {
@@ -41,13 +46,13 @@ public class GridInListViewActivity extends Activity implements GridItemClick {
 
                 list_selected_datas.addAll(fixListAdapter.getSelectedDatas());
 
-                String s = "";
+                /*String s = "";
 
                 for (int i = 0; i < list_selected_datas.size(); i++) {
                     FixAreaBean.FixContentBean bean = list_selected_datas.get(i);
                     s = s + "-" + bean.spaceName;
                 }
-                LogUtil.v(getClass(), "onClick---" + ":" + s);
+                LogUtil.v(getClass(), "onClick---" + ":" + s);*/
             }
         });
 
@@ -55,7 +60,8 @@ public class GridInListViewActivity extends Activity implements GridItemClick {
 
     private void initListView() {
         listView = (ListView) findViewById(R.id.list_view_fix_area);
-        fixListAdapter = new FixListAdapter(this, list_datas, this);
+        fixListAdapter = new FixListAdapter(this, list_datas);
+        fixListAdapter.setSelectedDatas(list_selected_datas);
         listView.setAdapter(fixListAdapter);
     }
 
@@ -73,11 +79,31 @@ public class GridInListViewActivity extends Activity implements GridItemClick {
 
             list_datas.add(fixAreaBean);
         }
-
     }
+    
+     /**
+      * 判断数据中是否包含已经选中的数据，是修改ischecked为true,并且让selectedNum+1
+      */
+    private void judgeDatas(){
+        try {
+            for (int i = 0; i < list_datas.size(); i++) {
+                ArrayList<FixAreaBean.FixContentBean> list_grid_datas = list_datas.get(i).fixAreaNames;
 
-    @Override
-    public void gridItemClick(String name) {
+                for (int j = 0; j < list_grid_datas.size(); j++) {
+                    FixAreaBean.FixContentBean bean = list_grid_datas.get(j);
 
+                    for (int k = 0; k < list_selected_datas.size(); k++) {
+                        if (bean.spaceName.equals(list_selected_datas.get(k).spaceName)) {
+                            bean.isChecked = true;
+                            list_datas.get(i).selectedNum ++ ;
+                            break;
+                        }
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+          LogUtil.e(getClass(), "judgeDatas", e);
+        }
     }
 }

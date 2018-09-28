@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.pullable.gridview.GridItemClick;
 import com.pullable.gridview.LogUtil;
 import com.pullable.gridview.R;
 import com.pullable.gridview.bean.FixAreaBean;
@@ -21,11 +20,9 @@ public class FixGridAdapter extends BaseAdapter {
     private Context context;// 上下文
     private LayoutInflater inflater;
     private List<FixAreaBean.FixContentBean> list_contents;
-    private GridItemClick gridItemClick;
 
-    public FixGridAdapter(Context context, List<FixAreaBean.FixContentBean> list_name, GridItemClick gridItemClick) {
+    public FixGridAdapter(Context context, List<FixAreaBean.FixContentBean> list_name) {
         this.context = context;
-        this.gridItemClick = gridItemClick;
         this.list_contents = list_name;
         inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -67,13 +64,6 @@ public class FixGridAdapter extends BaseAdapter {
             changeColor(holder.tv_name, fixContentBean);
 
             setClickListener(holder.tv_name, fixContentBean);
-            /*convertView.setOnClickListener(new OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    //gridItemClick.gridItemClick(list_contents.get(position));
-                }
-            });*/
         } catch (Exception e) {
             LogUtil.e(getClass(), "public View getView(final int position", e);
         }

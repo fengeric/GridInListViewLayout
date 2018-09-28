@@ -1,5 +1,6 @@
 package com.pullable.gridview.bean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -12,7 +13,7 @@ public class FixAreaBean {
     public int selectedNum = 0;
     public ArrayList<FixContentBean> fixAreaNames = new ArrayList<>();
 
-    public static class FixContentBean {
+    public static class FixContentBean implements Serializable{
         public int spaceId;//空间ID
         public String spaceName;//空间名称
         public boolean isChecked = false;// 空间是否被选中
