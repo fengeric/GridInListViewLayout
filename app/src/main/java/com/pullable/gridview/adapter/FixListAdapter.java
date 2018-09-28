@@ -94,11 +94,8 @@ public class FixListAdapter extends BaseAdapter {
 			reAdapter.setCallBack(new FixGridAdapter.CallBack() {
 				@Override
 				public void onItemClick(boolean isPlus) {
-					if (isPlus) {
-						fixAreaBean.selectedNum++;
-					} else {
-						fixAreaBean.selectedNum --;
-					}
+
+					fixAreaBean.selectedNum = isPlus ? ++fixAreaBean.selectedNum : --fixAreaBean.selectedNum;
 
 					setTextTitleColor(tvTitle, fixAreaBean.selectedNum);
 				}
