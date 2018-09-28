@@ -76,6 +76,21 @@ public class FixListAdapter extends BaseAdapter {
 			reAdapter = new FixGridAdapter(context, fixAreaBean.fixAreaNames,
 					gridItemClick);
 			viewHolder.childGridView.setAdapter(reAdapter);
+
+			setTitleColorChangeListener(reAdapter, fixAreaBean, viewHolder.titleName);
+
+			setTextTitleColor(viewHolder.titleName, fixAreaBean.selectedNum);
+			setViewVisiblity(viewHolder.childGridView, viewHolder.switchImag, fixAreaBean.isOpen);
+
+			changeColor(viewHolder.listItemLayout, viewHolder.childGridView, viewHolder.switchImag, fixAreaBean);
+		} catch (Exception e) {
+			LogUtil.e(getClass(), "public View getView(final int position", e);
+		}
+		return convertView;
+	}
+
+	private void setTitleColorChangeListener(FixGridAdapter reAdapter, final FixAreaBean fixAreaBean, final TextView tvTitle){
+		try {
 			reAdapter.setCallBack(new FixGridAdapter.CallBack() {
 				@Override
 				public void onItemClick(boolean isPlus) {
@@ -85,39 +100,12 @@ public class FixListAdapter extends BaseAdapter {
 						fixAreaBean.selectedNum --;
 					}
 
-					//setTextTitleColor(viewHolder.titleName, fixAreaBean.selectedNum);
+					setTextTitleColor(tvTitle, fixAreaBean.selectedNum);
 				}
 			});
-
-			setTextTitleColor(viewHolder.titleName, fixAreaBean.selectedNum);
-			setViewVisiblity(viewHolder.childGridView, viewHolder.switchImag, fixAreaBean.isOpen);
-
-			changeColor(viewHolder.listItemLayout, viewHolder.childGridView, viewHolder.switchImag, fixAreaBean);
-
-			/*viewHolder.childGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-				@Override
-				public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-					TextView tv_name = (TextView) view.findViewById(R.id.recommend_text);
-
-					GradientDrawable myGrad = (GradientDrawable) tv_name.getBackground();
-
-					boolean isChecked =(Boolean) tv_name.getTag(R.id.content_checked);
-					if (isChecked) {
-						tv_name.setTextColor(context.getResources().getColor(R.color.select_stroke_color));
-						myGrad.setColor(context.getResources().getColor(R.color.white));
-					} else {
-						tv_name.setTextColor(context.getResources().getColor(R.color.white));
-						myGrad.setColor(context.getResources().getColor(R.color.colro_checked));
-					}
-
-					tv_name.setTag(R.id.content_checked, !isChecked);
-				}
-			});*/
 		} catch (Exception e) {
-			LogUtil.e(getClass(), "public View getView(final int position", e);
+		  LogUtil.e(getClass(), "setTitleColorChangeListener", e);
 		}
-		return convertView;
 	}
 	
 	 /**
@@ -128,7 +116,7 @@ public class FixListAdapter extends BaseAdapter {
 			if (selectedNum > 0) {
 				textViewTitle.setTextColor(context.getResources().getColor(R.color.colro_checked));
 			} else {
-				textViewTitle.setTextColor(context.getResources().getColor(R.color.select_new_light_purple));
+				textViewTitle.setTextColor(context.getResources().getColor(R.color.select_stroke_color));
 			}
 		} catch (Exception e) {
 		  LogUtil.e(getClass(), "setTextTitleColor", e);
